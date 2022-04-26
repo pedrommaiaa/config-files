@@ -1,62 +1,37 @@
 syntax on
-
 set noerrorbells
 set visualbell
-set termguicolors
-set laststatus=4
 set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
+set ai
+set number
 set hlsearch
-nnoremap i :noh<cr>i
-set smartindent
-set nu
-set hidden
-set backspace=indent,eol,start
-set nowrap
-set smartcase
-set noswapfile
-set nobackup
-" redrawtime problem
-set re=0
-"let vimDir = '$HOME/.vim'
-"set undodir = $home/.vim/undodir'
-"set undofile
-set pastetoggle=<F3>
-set viminfo='100,<1000,s100,h
-
-nmap <silent> <C-e> <Plug>(ale_next_wrap)
-
-set colorcolumn=80
-highlight ColorColumn ctermbg=0 guibg=lightgrey
+set ruler
 highlight Comment ctermfg=green
-
+nnoremap i :noh<cr>i
 
 call  plug#begin('~/.vim/plugged')
 
 Plug 'morhetz/gruvbox'
-Plug 'preservim/nerdtree'
-Plug 'TovarishFin/vim-solidity'
-Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
+Plug 'tomlion/vim-solidity'
 
 call plug#end()
 
 colorscheme gruvbox
 set background=dark
-set t_Co=256
+set term=xterm-256color
 
-" ==== NERDTREE
-let NERDTreeIgnore = ['__pycache__', '\.pyc$', '\.o$', '\.so$', '\.a$', '\.swp', '*\.swp', '\.swo', '\.swn', '\.swh', '\.swm', '\.swl', '\.swk', '\.sw*$', '[a-zA-Z]*egg[a-zA-Z]*', '.DS_Store']
-
-let NERDTreeShowHidden=1
-let g:NERDTreeWinPos="left"
-let g:NERDTreeDirArrows=0
-" === ctrl+t activate NERDtree
-map <C-t> :NERDTreeToggle<CR>
-
-" ==== disable mouse
 set mouse=a
 
+function ToggleMouse()
+    if &mouse == 'a'
+        set mouse=
+        echo 'Mouse mode OFF'
+    else
+        set mouse=a
+        echo 'Mouse mode ON'
+    endif
+endfunction
 
-" ==== Comment and uncomment multiple lines
-" https://discuss.devopscube.com/t/how-to-comment-and-uncomment-multiple-line-vi-terminal-editor/64
+nnoremap <C-m> :call ToggleMouse() <CR>
